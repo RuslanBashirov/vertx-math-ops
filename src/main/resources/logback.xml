@@ -1,0 +1,19 @@
+<configuration>
+  <property name="loggingPattern" value="%date{ISO8601} %-5level %t %logger{0} : %M : %L - %msg%n"/>
+
+  <appender name="vertx-math-ops" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <file>/logs/vertx-math-ops/vertx-math-ops.log</file>
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>vertx-math-ops.%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>10</maxHistory>
+      <totalSizeCap>2GB</totalSizeCap>
+    </rollingPolicy>
+    <encoder>
+      <pattern>${loggingPattern}</pattern>
+    </encoder>
+  </appender>
+
+  <root level="debug">
+    <appender-ref ref="vertx-math-ops"/>
+  </root>
+</configuration>
