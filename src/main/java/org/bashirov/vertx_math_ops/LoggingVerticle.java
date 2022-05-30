@@ -11,10 +11,13 @@ public class LoggingVerticle extends AbstractVerticle {
   @Override
   public void start() {
     vertx.eventBus().consumer("vertx-math-ops", message -> {
-      MathOperationMessage mathOpn = (MathOperationMessage) message.body();
-      System.out.println(mathOpn.getResult());
+      MathOperationMessage mathOpMessage = (MathOperationMessage) message.body();
 
-      logger.debug("Got message " + mathOpn.getResult());
+      if (mathOpMessage.getErrorMessage() == null) {
+        logger.debug("Got math expression result " + mathOpMessage.getResult());
+      } else {
+        logger.error(mathOpMessage.getErrorMessage());
+      }
     });
   }
 }
